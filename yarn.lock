@@ -1480,9 +1480,9 @@ enhanced-resolve@^3.0.0:
     object-assign "^4.0.1"
     tapable "^0.2.7"
 
-enome@^4.4.2:
-  version "4.4.2"
-  resolved "https://registry.yarnpkg.com/enome/-/enome-4.4.2.tgz#1f46eeebc80294bbd10f36c905c0f839a0a8c429"
+enome@^4.4.3:
+  version "4.4.3"
+  resolved "https://registry.yarnpkg.com/enome/-/enome-4.4.3.tgz#8b31b0375d08afa162f0a09ac35f89fac7890499"
   dependencies:
     chance "^1.0.10"
     d3-interpolate "^1.1.5"

@@ -1,4 +1,4 @@
-import { Genome } from 'enome';
+import { Genome, hexColor } from 'enome';
 import * as _ from 'lodash';
 import { PaintingGenOptions } from '../options/painting-gen-options';
 
@@ -60,45 +60,19 @@ export class Path {
       .reduce((p, c) => `${p} ${c}`);
 
     // combine segments of path into one full path
-    const path = new Path(combined);
-    const strokeColored = path.geneticStrokeColor(g);
+    const path = new Path(combined)
+      .geneticStrokeColor(g)
+      .geneticStrokeWidth(g)
+      .geneticFillColor(g);
 
-    // tslint:disable-next-line:no-console
-    console.log(`stroke color: ${strokeColored.strokeColor}`);
+    const close = g.g.bool();
 
-    const strokeWidthed = strokeColored.geneticStrokeWidth(g);
-
-    // tslint:disable-next-line:no-console
-    console.log(`stroke width: ${strokeWidthed.strokeColor}`);
-
-    const fillColored = strokeWidthed.geneticFillColor(g);
-
-    // tslint:disable-next-line:no-console
-    console.log(`fill color: ${fillColored.strokeColor}`);
-
-    if (close) { return fillColored.close(); } else { return fillColored; }
+    if (close) { return path.close(); } else { return path; }
   }
 
   public static moveTo(x: number, y: number): Path {
     const d = `M ${x} ${y}`;
     return new Path(d);
-  }
-
-  public static color(genotype: Genome<PaintingGenOptions>): string {
-    const gen = genotype;
-
-    const hex = '0123456789abcdef'.split('');
-
-    const r1 = gen.g.element(hex);
-    const r2 = gen.g.element(hex);
-
-    const g1 = gen.g.element(hex);
-    const g2 = gen.g.element(hex);
-
-    const b1 = gen.g.element(hex);
-    const b2 = gen.g.element(hex);
-
-    return `#${r1}${r2}${g1}${g2}${b1}${b2}`;
   }
 
   constructor(
@@ -112,13 +86,13 @@ export class Path {
 
   public geneticStrokeColor(genotype: Genome<PaintingGenOptions>): Path {
     return new Path(
-      this.d, this.strokeWidth, Path.color(genotype), this.strokeOpacity, this.fillColor, this.fillOpacity
+      this.d, this.strokeWidth, hexColor(genotype), this.strokeOpacity, this.fillColor, this.fillOpacity
     );
   }
 
   public geneticFillColor(genotype: Genome<PaintingGenOptions>): Path {
     return new Path(
-      this.d, this.strokeWidth, this.strokeColor, this.strokeOpacity, Path.color(genotype), this.fillOpacity
+      this.d, this.strokeWidth, this.strokeColor, this.strokeOpacity, hexColor(genotype), this.fillOpacity
     );
   }
 
