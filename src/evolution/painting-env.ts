@@ -1,7 +1,7 @@
 import { reproduceManyToOne, ArtificialSelection, Genome, IArtificialOptions } from 'enome';
-import { PaintingGenOptions } from './painting-gen-options';
 import { Painting } from '../models/painting';
 import PaintingSpecimen from './painting-specimen';
+import { PaintingGenOptions } from '../options/painting-gen-options';
 
 export class PaintingEnvironment extends ArtificialSelection<PaintingGenOptions, Painting> {
 
@@ -15,7 +15,6 @@ export class PaintingEnvironment extends ArtificialSelection<PaintingGenOptions,
 
     reproduceSpecimen(parents: PaintingSpecimen[]): PaintingSpecimen {
         const genotypes = parents.map(p => p.genotype);
-
         return new PaintingSpecimen(reproduceManyToOne(genotypes));
     }
 
