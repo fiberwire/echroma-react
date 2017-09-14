@@ -10,6 +10,8 @@ interface Props {
 }
 
 interface State {
+  width: number;
+  height: number;
   specimen: PaintingSpecimen;
 }
 
@@ -19,24 +21,46 @@ class App extends React.Component<Props, State> {
     super(props);
 
     const width = 1920;
-    const height = 1080;
-    
+    const height = 940;
+
     this.state = {
+      width,
+      height,
       specimen: new PaintingSpecimen(new Genome<PaintingGenOptions>({
         width,
         height,
+        minX: 0,
         maxX: width,
+        minY: 0,
         maxY: height,
         ...genOptions
       }))
     };
   }
   render() {
+
+    const newPainting = this.newPainting.bind(this);
     return (
-      <div className="App">
+      <div className="App" onClick={newPainting}>
         <PaintingComponent specimen={this.state.specimen} />
       </div>
     );
+  }
+
+  newPainting(): void {
+    const { width, height } = this.state;
+
+    this.setState({
+      specimen: new PaintingSpecimen(new Genome<PaintingGenOptions>({
+        width,
+        height,
+        minX: 0,
+        maxX: width,
+        minY: 0,
+        maxY: height,
+        ...genOptions
+      }))
+    });
   }
 }
 
