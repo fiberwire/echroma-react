@@ -16,12 +16,12 @@ export interface StyleOptions {
 export default {
     stroke: {
         minWidth: 1,
-        maxWidth: 10,
-        minOpacity: 0.75,
+        maxWidth: 5,
+        minOpacity: 0.25,
         maxOpacity: 1
     },
     fill: {
-        minOpacity: 0.75,
-        maxOpacity: 1
+        minOpacity: 0.25,
+        maxOpacity: .75
     }
 };
