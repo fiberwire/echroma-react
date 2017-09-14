@@ -4,6 +4,48 @@ import { PaintingGenOptions } from '../options/painting-gen-options';
 
 export class Path {
 
+  // public static drawGeneticPath(g: Genome<PaintingGenOptions>, ctx: CanvasRenderingContext2D): void {
+    
+  // }
+
+  static drawLineTo(
+    x: number, y: number
+  ): (ctx: CanvasRenderingContext2D) => void {
+    return (ctx) => {
+      ctx.lineTo(x, y);
+    };
+  }
+
+  static drawBezierCurveTo(
+    x1: number, y1: number, x2: number, y2: number, x: number, y: number
+  ): (ctx: CanvasRenderingContext2D) => void {
+    return (ctx) => {
+      ctx.bezierCurveTo(x1, y1, x2, y2, x, y);
+    };
+  }
+
+  static drawQuadraticCurveTo(x1: number, y1: number, x: number, y: number): (ctx: CanvasRenderingContext2D) => void {
+    return (ctx) => {
+      ctx.quadraticCurveTo(x1, y1, x, y);
+    };
+  }
+
+  static drawArc(
+    x: number, y: number, radius: number, startAngle: number, endAngle: number, anticlockwise: boolean
+  ): (ctx: CanvasRenderingContext2D) => void {
+    return (ctx) => {
+      ctx.arc(x, y, radius, startAngle, endAngle, anticlockwise);
+    };
+  }
+
+  static drawArcTo(
+    x1: number, y1: number, x2: number, y2: number, radius: number
+  ): (ctx: CanvasRenderingContext2D) => void {
+    return (ctx) => {
+      ctx.arcTo(x1, y1, x2, y2, radius);
+    };
+  }
+
   public static geneticPath(g: Genome<PaintingGenOptions>): Path {
     const o = g.options;
 
@@ -13,7 +55,7 @@ export class Path {
       g.g.int(o.minY, o.maxY)
     );
 
-    const length = g.g.int(o.minPaths, o.maxPaths);
+    const length = g.g.int(o.minLength, o.maxLength);
 
     const paths: Path[] = _.range(length)
       .map(() => {

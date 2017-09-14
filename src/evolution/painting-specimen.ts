@@ -30,4 +30,15 @@ export default class PaintingSpecimen implements ISpecimen<PaintingGenOptions, P
     return new Painting(o.width, o.height, paths);
   }
 
+  // public drawOnCanvas(canvas: HTMLCanvasElement): void {
+  //   const ctx = <CanvasRenderingContext2D> canvas.getContext('2d');
+  //   const g = this.genotype;
+  //   const o = g.options;
+
+  //   _.range(g.g.int(o.minPaths, o.maxPaths))
+  //     .forEach(i => {
+  //       Path.drawGeneticPath(g, ctx);
+  //     });
+  // }
+
 }
