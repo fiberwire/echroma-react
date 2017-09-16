@@ -60,7 +60,7 @@ export default class PaintingEvolution extends React.Component<Props, State> {
                                     minX,
                                     minY
                                 } = spec.genotype.options;
-                                return <Column key={j}>
+                                return <Column lg={3} key={j}>
                                     <PaintingComponent
                                         key={spec.genotype.id}
                                         specimen={spec}
