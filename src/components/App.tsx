@@ -1,9 +1,8 @@
+import PaintingEvolution from './painting-evolution';
 import * as React from 'react';
 import './App.css';
-import PaintingComponent from './painting';
-import PaintingSpecimen from '../evolution/painting-specimen';
-import { Genome } from 'enome/lib';
-import { default as genOptions, PaintingGenOptions } from '../options/painting-gen-options';
+import { default as genOptions } from '../options/painting-gen-options';
+import { default as artOptions } from '../options/painting-art-options';
 
 interface Props {
 
@@ -12,7 +11,6 @@ interface Props {
 interface State {
   width: number;
   height: number;
-  specimen: PaintingSpecimen;
 }
 
 class App extends React.Component<Props, State> {
@@ -20,47 +18,33 @@ class App extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
 
-    const width = 1920;
-    const height = 940;
+    const width = 192;
+    const height = 108;
 
     this.state = {
-      width,
-      height,
-      specimen: new PaintingSpecimen(new Genome<PaintingGenOptions>({
-        width,
-        height,
-        minX: 0,
-        maxX: width,
-        minY: 0,
-        maxY: height,
-        ...genOptions
-      }))
+      width, height
     };
   }
   render() {
-
-    const newPainting = this.newPainting.bind(this);
-    return (
-      <div className="App" onClick={newPainting}>
-        <PaintingComponent specimen={this.state.specimen} />
-      </div>
-    );
-  }
-
-  newPainting(): void {
     const { width, height } = this.state;
 
-    this.setState({
-      specimen: new PaintingSpecimen(new Genome<PaintingGenOptions>({
-        width,
-        height,
-        minX: 0,
-        maxX: width,
-        minY: 0,
-        maxY: height,
-        ...genOptions
-      }))
-    });
+    return (
+      <div className="App">
+        <PaintingEvolution
+          columns={4}
+          genOptions={{
+            ...genOptions,
+            width,
+            height,
+            minX: 0,
+            maxX: width,
+            minY: 0,
+            maxY: height
+          }}
+          artOptions={artOptions}
+        />
+      </div>
+    );
   }
 }
 

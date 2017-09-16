@@ -3,21 +3,30 @@ import * as React from 'react';
 import * as _ from 'lodash';
 import { Path } from '../models/path';
 
+import './painting.scss';
+
 interface State {
 
 }
 
 interface Props {
     specimen: PaintingSpecimen;
+    viewWidth: number;
+    viewHeight: number;
+    viewMinX: number;
+    viewMinY: number;
 }
 
 export default class PaintingComponent extends React.Component<Props, State> {
 
     render() {
-        const { width, height } = this.props.specimen.genotype.options;
+        const { height } = this.props.specimen.genotype.options;
+
+        const { viewWidth, viewHeight, viewMinX, viewMinY } = this.props;
+
         return (
-            <div>
-                <svg width={width} height={height}>
+            <div className="painting-container">
+                <svg width="100%" height={height} viewBox={`${viewMinX} ${viewMinY} ${viewWidth} ${viewHeight}`}>
                     {this.renderPaths()}
                 </svg>
             </div>
@@ -26,7 +35,7 @@ export default class PaintingComponent extends React.Component<Props, State> {
 
     renderPaths() {
         const g = this.props.specimen.genotype;
-        const { minPaths, maxPaths } = this.props.specimen.genotype.options;
+        const { minPaths, maxPaths } = g.options;
         const paths = g.g.int(minPaths, maxPaths);
 
         return _.range(paths).map(i => {

@@ -45,12 +45,18 @@ export interface PaintingGenOptions extends IGenomeOptions {
     maxRadius: number;
 }
 
-export default {
-    genomeLength: 5000,
+const options: PaintingGenOptions =  {
+    width: 1920,
+    height: 1080,
+    minX: 0,
+    maxX: 1920,
+    minY: 0,
+    maxY: 1080,
+    genomeLength: 500,
     geneLength: 1,
     style: { ...styleOptions },
-    minPaths: 50,
-    maxPaths: 100,
+    minPaths: 5,
+    maxPaths: 10,
     minLength: 1,
     maxLength: 3,
     minLarge: 0,
@@ -58,11 +64,13 @@ export default {
     minSweep: 0,
     maxSweep: 1,
     minRadius: 1,
-    maxRadius: 100,
+    maxRadius: 1,
     minRotation: 0,
     maxRotation: 360,
     minXRadius: 1,
-    maxXRadius: 100,
+    maxXRadius: 1,
     minYRadius: 1,
-    maxYRadius: 100,
+    maxYRadius: 1,
 };
+
+export default options;
