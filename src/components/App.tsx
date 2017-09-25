@@ -1,8 +1,6 @@
-import PaintingEvolution from './painting-evolution';
+import { Fibonacci } from './fibonacci';
 import * as React from 'react';
 import './App.css';
-import { default as genOptions } from '../options/painting-gen-options';
-import { default as artOptions } from '../options/painting-art-options';
 
 interface Props {
 
@@ -11,6 +9,7 @@ interface Props {
 interface State {
   width: number;
   height: number;
+  points: number;
 }
 
 class App extends React.Component<Props, State> {
@@ -18,31 +17,21 @@ class App extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
 
-    const width = 192;
-    const height = 108;
+    const width = 1000;
+    const height = 1000;
 
     this.state = {
-      width, height
+      width,
+      height,
+      points: 20
     };
   }
   render() {
-    const { width, height } = this.state;
+    const { width, height, points } = this.state;
 
     return (
       <div className="App">
-        <PaintingEvolution
-          columns={4}
-          genOptions={{
-            ...genOptions,
-            width,
-            height,
-            minX: 0,
-            maxX: width,
-            minY: 0,
-            maxY: height
-          }}
-          artOptions={artOptions}
-        />
+        <Fibonacci width={width} height={height} points={points} />
       </div>
     );
   }
