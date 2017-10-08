@@ -1,7 +1,5 @@
 # echroma
 
-### This is still a work in progress. So far, it just generates random paintings.
-
 ## What is echroma?
 echroma is a genetic painting app, which allows you to evolve paintings through artificial selection.
 
