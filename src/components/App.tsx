@@ -2,10 +2,8 @@ import PaintingEvolution from './painting-evolution';
 import * as React from 'react';
 import { default as genOptions } from '../options/painting-gen-options';
 import { default as artOptions } from '../options/painting-art-options';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import AppBar from 'material-ui/AppBar';
-import Drawer from 'material-ui/Drawer';
-import { MenuItem, Menu } from 'material-ui';
+import { MenuItem, Menu, Toolbar, IconButton, AppBar, Drawer } from 'material-ui';
+import MenuIcon from 'material-ui-icons/Menu';
 
 interface Props {
 
@@ -22,8 +20,8 @@ class App extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
 
-    const width = 192;
-    const height = 108;
+    const width = 333;
+    const height = 333;
 
     this.state = {
       width, height, drawerOpen: false
@@ -33,37 +31,38 @@ class App extends React.Component<Props, State> {
     const { width, height } = this.state;
 
     return (
-      <MuiThemeProvider>
-        <div className="App">
-          <AppBar
-            title="echroma"
-            onLeftIconButtonTouchTap={() => this.setState({ drawerOpen: !this.state.drawerOpen })}
-          />
-          <Drawer
-            open={this.state.drawerOpen}
-            docked={false}
-            onRequestChange={(open) => this.setState({ drawerOpen: open })}
-          >
-            <Menu>
-              <MenuItem>New Painting</MenuItem>
-            </Menu>
-          </Drawer>
+      <div className="App">
+        <AppBar position="static">
+          <Toolbar>
+            <IconButton color="contrast" onClick={() => this.setState({ drawerOpen: true })}>
+              <MenuIcon />
+            </IconButton>
+            echroma
+            </Toolbar>
+        </AppBar>
 
-          <PaintingEvolution
-            columns={4}
-            genOptions={{
-              ...genOptions,
-              width,
-              height,
-              minX: 0,
-              maxX: width,
-              minY: 0,
-              maxY: height
-            }}
-            artOptions={artOptions}
-          />
-        </div>
-      </MuiThemeProvider>
+        <Drawer
+          open={this.state.drawerOpen}
+          onRequestClose={() => this.setState({ drawerOpen: false })}
+        >
+          <Menu>
+            <MenuItem>New Painting</MenuItem>
+          </Menu>
+        </Drawer>
+
+        <PaintingEvolution
+          genOptions={{
+            ...genOptions,
+            width,
+            height,
+            minX: 0,
+            maxX: width,
+            minY: 0,
+            maxY: height
+          }}
+          artOptions={artOptions}
+        />
+      </div>
     );
   }
 }
