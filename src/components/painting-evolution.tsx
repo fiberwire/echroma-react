@@ -41,7 +41,8 @@ export default class PaintingEvolution extends React.Component<Props, State> {
     render() {
         const cols = this.props.columns;
         const { specimens } = this.state;
-        const rows = _.chunk(specimens, cols);
+        const indexed = specimens.map((spec, i) => ({ specimen: spec, index: i }));
+        const rows = _.chunk(indexed, cols);
 
         return (
             <div>
@@ -54,11 +55,13 @@ export default class PaintingEvolution extends React.Component<Props, State> {
                                     height,
                                     minX,
                                     minY
-                                } = spec.genotype.options;
+                                } = spec.specimen.genotype.options;
                                 return <Column lg={3} key={j}>
                                     <PaintingComponent
-                                        key={spec.genotype.id}
-                                        specimen={spec}
+                                        env={this.state.env}
+                                        key={spec.specimen.genotype.id}
+                                        index={spec.index}
+                                        specimen={spec.specimen}
                                         viewWidth={width}
                                         viewHeight={height}
                                         viewMinX={minX}

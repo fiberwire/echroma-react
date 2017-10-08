@@ -4,17 +4,20 @@ import * as _ from 'lodash';
 import { Path } from '../models/path';
 import { PaintingButtons } from './painting-buttons';
 import { refill } from 'enome';
+import { PaintingEnvironment } from '../evolution/painting-env';
 
 interface State {
     hideButtons: boolean;
 }
 
 interface Props {
+    index: number;
     specimen: PaintingSpecimen;
     viewWidth: number;
     viewHeight: number;
     viewMinX: number;
     viewMinY: number;
+    env: PaintingEnvironment;
 }
 
 export default class PaintingComponent extends React.Component<Props, State> {
@@ -41,7 +44,11 @@ export default class PaintingComponent extends React.Component<Props, State> {
                 <svg width="100%" height={height} viewBox={`${viewMinX} ${viewMinY} ${viewWidth} ${viewHeight}`}>
                     {this.renderPaths()}
                 </svg>
-                <PaintingButtons hidden={this.state.hideButtons} />
+                <PaintingButtons
+                    index={this.props.index}
+                    hidden={this.state.hideButtons}
+                    env={this.props.env}
+                />
             </div>
         );
     }
