@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import * as React from 'react';
-import { RaisedButton } from 'material-ui';
+import { Button } from 'material-ui';
 import { StyleSheet, css } from 'aphrodite';
 import { PaintingEnvironment } from '../evolution/painting-env';
 
@@ -25,21 +25,25 @@ export class PaintingButtons extends Component<Props, State> {
 
         return (
             <div className={css(style.buttons)}>
-                <RaisedButton
-                    label="Keep"
-                    primary={true}
+                <Button
+                    raised={true}
+                    color="primary"
                     onClick={() => {
                         env.keep([index]);
                     }}
-                />
+                >
+                    Keep
+                </Button>
 
-                <RaisedButton
-                    label="Kill"
-                    secondary={true}
+                <Button
+                    raised={true}
+                    color="accent"
                     onClick={() => {
-                        env.kill([index]);
+                        env.keep([index]);
                     }}
-                />
+                >
+                    Kill
+                </Button>
             </div>
         );
     }
