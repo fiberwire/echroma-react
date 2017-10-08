@@ -2,15 +2,15 @@ import * as React from 'react';
 import { PaintingEnvironment } from '../evolution/painting-env';
 import { PaintingGenOptions } from '../options/painting-gen-options';
 import { IArtificialOptions } from 'enome';
-import PaintingComponent from './painting';
-import { Page, Column, Row } from 'hedron';
 import * as _ from 'lodash';
 import PaintingSpecimen from '../evolution/painting-specimen';
+import Grid from 'material-ui/Grid';
+import PaintingQueue from './painting-queue';
+import { PaintingSelection } from './painting-selection';
 
 interface Props {
     genOptions: PaintingGenOptions;
     artOptions: IArtificialOptions;
-    columns: number;
 }
 
 interface State {
@@ -39,40 +39,29 @@ export default class PaintingEvolution extends React.Component<Props, State> {
     }
 
     render() {
-        const cols = this.props.columns;
-        const { specimens } = this.state;
+        // const cols = this.props.columns;
+        const { specimens, env } = this.state;
         const indexed = specimens.map((spec, i) => ({ specimen: spec, index: i }));
-        const rows = _.chunk(indexed, cols);
+        const first3 = _.take(indexed, 3);
+        const rest = _.takeRight(indexed, indexed.length - 3);
 
         return (
-            <div>
-                <Page>
-                    {rows.map((row, i) => {
-                        return <Row key={i}>
-                            {row.map((spec, j) => {
-                                const {
-                                    width,
-                                    height,
-                                    minX,
-                                    minY
-                                } = spec.specimen.genotype.options;
-                                return <Column lg={3} key={j}>
-                                    <PaintingComponent
-                                        env={this.state.env}
-                                        key={spec.specimen.genotype.id}
-                                        index={spec.index}
-                                        specimen={spec.specimen}
-                                        viewWidth={width}
-                                        viewHeight={height}
-                                        viewMinX={minX}
-                                        viewMinY={minY}
-                                    />
-                                </Column>;
-                            })}
-                        </Row>;
-                    })}
-                </Page>
-            </div>
+            <Grid
+                container={true}
+                direction="column"
+                spacing={40}
+            >
+                <Grid item={true} xs={4}>
+                    <PaintingQueue specimens={rest} />
+                </Grid>
+
+                <Grid item={true} xs={12}>
+                    <PaintingSelection
+                        specimens={first3}
+                        env={env}
+                    />
+                </Grid>
+            </Grid>
         );
     }
 }
