@@ -3,6 +3,7 @@ import * as React from 'react';
 import './App.css';
 import { default as genOptions } from '../options/painting-gen-options';
 import { default as artOptions } from '../options/painting-art-options';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 interface Props {
 
@@ -29,21 +30,23 @@ class App extends React.Component<Props, State> {
     const { width, height } = this.state;
 
     return (
-      <div className="App">
-        <PaintingEvolution
-          columns={4}
-          genOptions={{
-            ...genOptions,
-            width,
-            height,
-            minX: 0,
-            maxX: width,
-            minY: 0,
-            maxY: height
-          }}
-          artOptions={artOptions}
-        />
-      </div>
+      <MuiThemeProvider>
+        <div className="App">
+          <PaintingEvolution
+            columns={4}
+            genOptions={{
+              ...genOptions,
+              width,
+              height,
+              minX: 0,
+              maxX: width,
+              minY: 0,
+              maxY: height
+            }}
+            artOptions={artOptions}
+          />
+        </div>
+      </MuiThemeProvider>
     );
   }
 }

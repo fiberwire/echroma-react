@@ -7,9 +7,11 @@
     "@types/node": "^8.0.28",
     "@types/react": "^16.0.5",
     "@types/react-dom": "^15.5.4",
+    "aphrodite": "^1.2.4",
     "enome": "^4.5.0",
     "hedron": "^0.7.1",
     "lodash": "^4.17.4",
+    "material-ui": "^0.19.3",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-grid-layout": "^0.15.2",
@@ -24,8 +26,10 @@
     "eject": "react-scripts-ts eject"
   },
   "devDependencies": {
+    "@types/aphrodite": "^0.5.6",
     "@types/hedron": "^0.7.1",
     "@types/lodash": "^4.14.74",
+    "@types/material-ui": "^0.18.2",
     "@types/react-grid-layout": "^0.14.3"
   }
 }
