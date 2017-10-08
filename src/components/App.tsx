@@ -4,6 +4,9 @@ import './App.css';
 import { default as genOptions } from '../options/painting-gen-options';
 import { default as artOptions } from '../options/painting-art-options';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import AppBar from 'material-ui/AppBar';
+import Drawer from 'material-ui/Drawer';
+import { MenuItem, Menu } from 'material-ui';
 
 interface Props {
 
@@ -12,6 +15,7 @@ interface Props {
 interface State {
   width: number;
   height: number;
+  drawerOpen: boolean;
 }
 
 class App extends React.Component<Props, State> {
@@ -23,7 +27,7 @@ class App extends React.Component<Props, State> {
     const height = 108;
 
     this.state = {
-      width, height
+      width, height, drawerOpen: false
     };
   }
   render() {
@@ -32,6 +36,20 @@ class App extends React.Component<Props, State> {
     return (
       <MuiThemeProvider>
         <div className="App">
+          <AppBar
+            title="echroma"
+            onLeftIconButtonTouchTap={() => this.setState({ drawerOpen: !this.state.drawerOpen })}
+          />
+          <Drawer
+            open={this.state.drawerOpen}
+            docked={false}
+            onRequestChange={(open) => this.setState({ drawerOpen: open })}
+          >
+            <Menu>
+              <MenuItem>New Painting</MenuItem>
+            </Menu>
+          </Drawer>
+
           <PaintingEvolution
             columns={4}
             genOptions={{
