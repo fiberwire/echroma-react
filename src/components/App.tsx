@@ -1,6 +1,5 @@
 import PaintingEvolution from './painting-evolution';
 import * as React from 'react';
-import './App.css';
 import { default as genOptions } from '../options/painting-gen-options';
 import { default as artOptions } from '../options/painting-art-options';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
