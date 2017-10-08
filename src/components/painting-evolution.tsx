@@ -6,7 +6,6 @@ import PaintingComponent from './painting';
 import { Page, Column, Row } from 'hedron';
 import * as _ from 'lodash';
 import PaintingSpecimen from '../evolution/painting-specimen';
-import { Observable } from 'rxjs';
 
 interface Props {
     genOptions: PaintingGenOptions;
@@ -36,10 +35,6 @@ export default class PaintingEvolution extends React.Component<Props, State> {
             this.setState({
                 specimens: s.state.specimens
             });
-        });
-
-        Observable.interval(3000).subscribe(i => {
-            this.state.env.keep();
         });
     }
 
