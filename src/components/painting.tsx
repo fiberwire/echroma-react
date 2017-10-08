@@ -2,11 +2,11 @@ import PaintingSpecimen from '../evolution/painting-specimen';
 import * as React from 'react';
 import * as _ from 'lodash';
 import { Path } from '../models/path';
-
-import './painting.scss';
+import { PaintingButtons } from './painting-buttons';
+import { refill } from 'enome';
 
 interface State {
-
+    hideButtons: boolean;
 }
 
 interface Props {
@@ -19,22 +19,35 @@ interface Props {
 
 export default class PaintingComponent extends React.Component<Props, State> {
 
+    constructor(props: Props) {
+        super(props);
+
+        this.state = {
+            hideButtons: true
+        };
+    }
+
     render() {
         const { height } = this.props.specimen.genotype.options;
 
         const { viewWidth, viewHeight, viewMinX, viewMinY } = this.props;
 
         return (
-            <div className="painting-container">
+            <div
+                className="painting-container"
+                onMouseOut={() => this.setState({ hideButtons: true })}
+                onMouseOver={() => this.setState({ hideButtons: false })}
+            >
                 <svg width="100%" height={height} viewBox={`${viewMinX} ${viewMinY} ${viewWidth} ${viewHeight}`}>
                     {this.renderPaths()}
                 </svg>
+                <PaintingButtons hidden={this.state.hideButtons} />
             </div>
         );
     }
 
     renderPaths() {
-        const g = this.props.specimen.genotype;
+        const g = refill(this.props.specimen.genotype);
         const { minPaths, maxPaths } = g.options;
         const paths = g.g.int(minPaths, maxPaths);
 
