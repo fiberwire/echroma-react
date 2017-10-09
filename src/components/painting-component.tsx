@@ -2,18 +2,17 @@ import PaintingSpecimen from '../evolution/painting-specimen';
 import * as React from 'react';
 import * as _ from 'lodash';
 import { Path } from '../models/path';
-import { PaintingButtons } from './painting-buttons';
 import { refill } from 'enome';
 import { PaintingEnvironment } from '../evolution/painting-env';
 import { Component } from 'react';
 import { Grid } from 'material-ui';
 
 interface State {
-    hideButtons: boolean;
 }
 
 interface Props {
     index: number;
+    highlightKeep: (index: number) => void;
     specimen: PaintingSpecimen;
     viewWidth: number;
     viewHeight: number;
@@ -28,21 +27,19 @@ export default class PaintingComponent extends Component<Props, State> {
         super(props);
 
         this.state = {
-            hideButtons: true
+            hideSelection: true
         };
     }
 
     render() {
         const { width, height } = this.props.specimen.genotype.options;
 
-        const { viewWidth, viewHeight, viewMinX, viewMinY } = this.props;
+        const { viewWidth, viewHeight, viewMinX, viewMinY, index, highlightKeep } = this.props;
 
         return (
             <Grid
                 container={true}
                 className="painting-container"
-                onMouseOut={() => this.setState({ hideButtons: true })}
-                onMouseOver={() => this.setState({ hideButtons: false })}
                 spacing={16}
                 direction="column"
                 justify="center"
@@ -51,19 +48,15 @@ export default class PaintingComponent extends Component<Props, State> {
                 <Grid
                     item={true}
                 >
-                    <svg width={width} height={height} viewBox={`${viewMinX} ${viewMinY} ${viewWidth} ${viewHeight}`}>
+                    <svg
+                        onMouseLeave={() => highlightKeep(-1)}
+                        onMouseEnter={() => highlightKeep(index)}
+                        width={width}
+                        height={height}
+                        viewBox={`${viewMinX} ${viewMinY} ${viewWidth} ${viewHeight}`}
+                    >
                         {this.renderPaths()}
                     </svg>
-                </Grid>
-
-                <Grid
-                    item={true}
-                >
-                    <PaintingButtons
-                        index={this.props.index}
-                        hidden={this.state.hideButtons}
-                        env={this.props.env}
-                    />
                 </Grid>
             </Grid>
         );
