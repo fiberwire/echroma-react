@@ -52,10 +52,6 @@ export class PaintingSelection extends Component<Props, State> {
                                     <PaintingComponent
                                         index={spec.index}
                                         specimen={spec.specimen}
-                                        viewWidth={333}
-                                        viewHeight={333}
-                                        viewMinX={0}
-                                        viewMinY={0}
                                         env={env}
                                         highlightKeep={highlightKeep}
                                     />

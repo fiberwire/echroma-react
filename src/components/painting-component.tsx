@@ -14,10 +14,6 @@ interface Props {
     index: number;
     highlightKeep: (index: number) => void;
     specimen: PaintingSpecimen;
-    viewWidth: number;
-    viewHeight: number;
-    viewMinX: number;
-    viewMinY: number;
     env: PaintingEnvironment;
 }
 
@@ -32,9 +28,9 @@ export default class PaintingComponent extends Component<Props, State> {
     }
 
     render() {
-        const { width, height } = this.props.specimen.genotype.options;
+        const { width, height, viewWidth, viewHeight, viewMinX, viewMinY } = this.props.specimen.genotype.options;
 
-        const { viewWidth, viewHeight, viewMinX, viewMinY, index, highlightKeep } = this.props;
+        const { index, highlightKeep } = this.props;
 
         return (
             <Grid

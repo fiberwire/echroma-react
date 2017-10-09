@@ -9,6 +9,11 @@ export interface PaintingGenOptions extends IGenomeOptions {
     width: number;
     height: number;
 
+    viewWidth: number;
+    viewHeight: number;
+    viewMinX: number;
+    viewMinY: number;
+
     // min and max coordinates
     minX: number;
     maxX: number;
@@ -52,6 +57,10 @@ const options: PaintingGenOptions =  {
     maxX: 1920,
     minY: 0,
     maxY: 1080,
+    viewWidth: 1920,
+    viewHeight: 1080,
+    viewMinX: 0,
+    viewMinY: 0,
     genomeLength: 500,
     geneLength: 1,
     style: { ...styleOptions },
