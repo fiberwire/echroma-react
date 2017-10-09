@@ -1,17 +1,15 @@
-import PaintingEvolution from './painting-evolution';
 import * as React from 'react';
-import { default as genOptions } from '../options/painting-gen-options';
-import { default as artOptions } from '../options/painting-art-options';
 import { MenuItem, Menu, Toolbar, IconButton, AppBar, Drawer } from 'material-ui';
 import MenuIcon from 'material-ui-icons/Menu';
+import { Switch, Route } from 'react-router';
+import Home from './pages/Home';
+import PaintingPage from './pages/PaintingPage';
 
 interface Props {
 
 }
 
 interface State {
-  width: number;
-  height: number;
   drawerOpen: boolean;
 }
 
@@ -20,16 +18,11 @@ class App extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
 
-    const width = 333;
-    const height = 333;
-
     this.state = {
-      width, height, drawerOpen: false
+      drawerOpen: false
     };
   }
   render() {
-    const { width, height } = this.state;
-
     return (
       <div className="App">
         <AppBar position="static">
@@ -50,18 +43,10 @@ class App extends React.Component<Props, State> {
           </Menu>
         </Drawer>
 
-        <PaintingEvolution
-          genOptions={{
-            ...genOptions,
-            width,
-            height,
-            minX: 0,
-            maxX: width,
-            minY: 0,
-            maxY: height
-          }}
-          artOptions={artOptions}
-        />
+        <Switch>
+          <Route exact={true} path="/" component={Home}/>
+          <Route path="/painting" component={PaintingPage}/>
+        </Switch>
       </div>
     );
   }
